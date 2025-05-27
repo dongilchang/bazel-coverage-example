@@ -1,7 +1,7 @@
-Bazel Code Coverage
-===================
+A missing Bazel Code Coverage 
+========================
 
-Sample Project to play with generation of code coverage info from Bazel.
+Sample Project to reproduce the missing Bazel code coverage
 
 The `docker` folder contains a Dockerfile that prepares the build environment (ubuntu 18.04 + Bazel 2.0.0).
 To start the container call"
@@ -24,7 +24,9 @@ bazel test //...
 
 To create the coverage report:
 ```
-bazel coverage --instrument_test_targets --experimental_cc_coverage --combined_report=lcov --coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main //...
+bazel coverage --cxxopt=-std=c++17 --instrumentation_filter=^//package[/:],-^//package/test[/:] --strategy=CoverageReport=local --nocache_test_results --experimental_split_coverage_postprocessing --experimental_fetch_all_coverage_outputs --copt="-O0" --combined_report=lcov //...
 genhtml bazel-out/_coverage/_coverage_report.dat -o report
 ```
-the report will be generated in the `report` folder
+
+The code coverage report doesn't contain  the coverage result of `package/src/add.hpp`
+even though the test case fully verify the template function in `package/src/add.hpp`.
