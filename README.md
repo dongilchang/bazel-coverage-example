@@ -3,7 +3,7 @@ A missing Bazel Code Coverage
 
 Sample Project to reproduce the missing Bazel code coverage
 
-The `docker` folder contains a Dockerfile that prepares the build environment (ubuntu 18.04 + Bazel 8.7.1).
+The `docker` folder contains a Dockerfile that prepares the build environment (ubuntu 18.04 + Bazel 8.2.1).
 To start the container call"
 ```
    docker/run.sh
